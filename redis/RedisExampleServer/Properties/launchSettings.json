@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "RedisExampleServer": {
+      "commandName": "Project",
+      "applicationUrl": "http://0.0.0.0:11600",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

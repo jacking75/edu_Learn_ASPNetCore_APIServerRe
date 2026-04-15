@@ -1,0 +1,125 @@
+@host = http://localhost:8080
+
+### ============================================
+### 1. 기본 로깅 - LogLevel별 출력
+### ============================================
+
+### Information 레벨 (기본)
+POST {{host}}/logging
+Content-Type: application/json
+
+{
+  "message": "Hello ZLogger!",
+  "level": "information"
+}
+
+### Debug 레벨
+POST {{host}}/logging
+Content-Type: application/json
+
+{
+  "message": "Debug message for troubleshooting",
+  "level": "debug"
+}
+
+### Warning 레벨
+POST {{host}}/logging
+Content-Type: application/json
+
+{
+  "message": "This is a warning",
+  "level": "warning"
+}
+
+### Error 레벨
+POST {{host}}/logging
+Content-Type: application/json
+
+{
+  "message": "Something went wrong",
+  "level": "error"
+}
+
+### Critical 레벨
+POST {{host}}/logging
+Content-Type: application/json
+
+{
+  "message": "Critical system failure",
+  "level": "critical"
+}
+
+### ============================================
+### 2. BeginScope 중첩 예시
+### ============================================
+
+### Scope Demo - RequestId와 Step이 중첩된 scope로 기록됨
+POST {{host}}/logging/scope
+Content-Type: application/json
+
+{
+  "message": "Testing nested scopes"
+}
+
+### ============================================
+### 3. 예외 로깅 예시
+### ============================================
+
+### Exception Demo - 스택 트레이스가 포함된 에러 로그
+POST {{host}}/logging/exception
+Content-Type: application/json
+
+{
+  "message": "Trigger exception for demo"
+}
+
+### ============================================
+### 4. 로그인 시나리오 (BaseController 패턴)
+### ============================================
+
+### 로그인 성공 - ActionLog + InformationLog 출력
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "playerId": 1,
+  "token": "valid-token-abc"
+}
+
+### 로그인 실패 (잘못된 토큰) - ErrorLog 출력
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "playerId": 2,
+  "token": "invalid"
+}
+
+### 로그인 실패 (빈 토큰) - ErrorLog 출력
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "playerId": 3,
+  "token": ""
+}
+
+### ============================================
+### 5. 게임 시작 시나리오 (BeginScope + MetricLog)
+### ============================================
+
+### 게임 시작 성공 - BeginScope(uid) + MetricLog("GameCreated") + ActionLog
+POST {{host}}/game/start
+Content-Type: application/json
+
+{
+  "uid": 100
+}
+
+### 게임 시작 실패 (잘못된 uid) - Warning + ErrorLog
+POST {{host}}/game/start
+Content-Type: application/json
+
+{
+  "uid": -1
+}

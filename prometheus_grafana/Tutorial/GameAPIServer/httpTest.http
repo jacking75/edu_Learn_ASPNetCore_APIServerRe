@@ -1,0 +1,72 @@
+﻿@host = http://localhost:11500
+
+### ============================================================
+### 기존 API
+### ============================================================
+
+### 로그인
+POST {{host}}/Login
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe"
+}
+
+### 계정 생성
+POST {{host}}/CreateAccount
+Content-Type: application/json
+
+{
+  "ID":"jacking751",
+  "PW":"123qwe",
+  "NickName": "aaa"
+}
+
+
+### ============================================================
+### Prometheus 메트릭 예시 (MetricsExampleController)
+### ============================================================
+
+### [Counter] 로그인 성공 (api_login_total{status="success"} 증가)
+POST {{host}}/MetricsExample/Login
+Content-Type: application/json
+
+{ "UserId": "user1" }
+
+### [Counter] 로그인 실패 (api_login_total{status="fail"} 증가)
+POST {{host}}/MetricsExample/Login
+Content-Type: application/json
+
+{ "UserId": "error" }
+
+### [Gauge] 유저 접속 (api_active_users 증가)
+POST {{host}}/MetricsExample/Connect
+
+### [Gauge] 유저 접속 해제 (api_active_users 감소)
+POST {{host}}/MetricsExample/Disconnect
+
+### [Histogram + Summary] 100ms 작업 (api_request_duration_seconds에 분포 기록)
+POST {{host}}/MetricsExample/SlowWork
+Content-Type: application/json
+
+{ "DelayMs": 100 }
+
+### [Histogram + Summary] 500ms 작업 (느린 요청 시뮬레이션)
+POST {{host}}/MetricsExample/SlowWork
+Content-Type: application/json
+
+{ "DelayMs": 500 }
+
+### [Histogram + Summary] 2000ms 작업 (매우 느린 요청)
+POST {{host}}/MetricsExample/SlowWork
+Content-Type: application/json
+
+{ "DelayMs": 2000 }
+
+### ============================================================
+### 메트릭 확인: 브라우저에서 아래 주소 접속
+### http://localhost:11500/metrics
+### → api_login_total, api_active_users,
+###   api_request_duration_seconds_bucket 등 확인 가능
+### ============================================================
