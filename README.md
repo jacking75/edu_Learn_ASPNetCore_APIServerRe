@@ -1,5 +1,9 @@
 # ASP.NET Core Web API 게임 서버 학습
-
+[edu_Learn_ASPNetCore_APIServer](https://github.com/jacking75/edu_Learn_ASPNetCore_APIServer) 에 있는 문서와 코드를 AI에 입력하여 학습하기 위해 마크다운 문서로(혹은 .md 이지만 텍스트 파일) 만든 프로젝트이다. 여기에 있는 마크다운 문서로 AI를 사용하여 학습을 하면 효율적으로 할 수 있다.    
+READE.md에 있는 외부 링크 문서는 직접 AI에 링크 그대로 입력하거나 혹은 마크다운 문서로 만들어서 사용하면 좋다.  
+  
+---  
+    
 ASP.NET Core로 게임 API 서버를 만드는 방법을 단계별로 학습하는 저장소.
 학습 문서 + 예제 코드 + 실습 과제가 포함되어 있다.
 
